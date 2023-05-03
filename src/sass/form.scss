@@ -1,0 +1,12 @@
+.form {
+  display: flex;
+  &__input {
+    margin-right: 8px;
+    flex-grow: 1;
+    padding: 7px;
+    border: 1px solid black;
+    &::placeholder {
+      font-family: inherit;
+    }
+  }
+}

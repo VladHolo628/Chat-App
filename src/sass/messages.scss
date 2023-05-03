@@ -1,0 +1,36 @@
+@import "./vars/colors.scss";
+
+.messages {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  justify-content: flex-end;
+  list-style: none;
+  padding: 8px;
+
+  &__item {
+    width: fit-content;
+    padding: 8px;
+    background-color: $light-grey;
+    align-self: flex-end;
+
+    &--recieved {
+      background-color: $dark-grey;
+      align-self: flex-start;
+    }
+  }
+
+  &__item:not(:last-child) {
+    margin-bottom: 15px;
+  }
+
+  &__item-author {
+    margin-right: 5px;
+  }
+  &__item-date {
+    margin-top: 5px;
+    font-size: 14px;
+    text-align: right;
+    color: $light-black;
+  }
+}

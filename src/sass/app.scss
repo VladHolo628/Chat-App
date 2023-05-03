@@ -1,0 +1,17 @@
+.app {
+  padding: 8px;
+  width: 60%;
+  background-color: #fff;
+}
+
+.app__screen {
+  border: 1px solid black;
+  height: 450px;
+  margin-bottom: 8px;
+}
+
+.app__header {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 8px;
+}
