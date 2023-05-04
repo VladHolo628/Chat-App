@@ -11,7 +11,7 @@
       rel="stylesheet"
     />
     <link rel="stylesheet" href="./sass/main.scss" />
-    <script defer src="./js/main.js"></script>
+    <script defer src="./js/main.js" type="module"></script>
     <title>Chat</title>
   </head>
   <body>
@@ -72,5 +72,14 @@
         </div>
       </div>
     </main>
+    <template id="message-item-template">
+      <li class="messages__item">
+        <div class="messages__item-text-container">
+          <span class="messages__item-author"></span>
+          <p class="messages__item-text"></p>
+        </div>
+        <div class="messages__item-date"></div>
+      </li>
+    </template>
   </body>
 </html>
