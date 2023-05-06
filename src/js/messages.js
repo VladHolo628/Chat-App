@@ -30,4 +30,5 @@ export const addMessage = function (author, text, recieved = false) {
 
   const newMessage = createNewMessageItem(author, text, recieved);
   messagesList.appendChild(newMessage);
+  messagesList.scrollTop = messagesList.scrollHeight;
 };

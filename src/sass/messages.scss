@@ -4,9 +4,15 @@
   display: flex;
   flex-direction: column;
   height: 100%;
-  justify-content: flex-end;
   list-style: none;
   padding: 8px;
+  overflow-y: scroll;
+  scrollbar-width: none;
+
+  &::-webkit-scrollbar {
+    width: 0;
+    background: transparent;
+  }
 
   &__item {
     width: fit-content;
@@ -22,6 +28,10 @@
 
   &__item:not(:last-child) {
     margin-bottom: 15px;
+  }
+
+  &__item:first-child {
+    margin-top: auto;
   }
 
   &__item-author {
