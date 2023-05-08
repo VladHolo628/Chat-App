@@ -1,7 +1,10 @@
 import { format } from "date-fns";
+import { UserDataSender } from "./user";
 
 const messagesList = document.querySelector(".messages");
 const messageTemplate = document.getElementById("message-item-template");
+
+const dataSender = new UserDataSender();
 
 const validateMessage = function (messageText) {
   const messageIsValid = messageText.length > 0;
@@ -25,7 +28,7 @@ const createNewMessageItem = function (author, text, recieved) {
   return newMessageItem;
 };
 
-export const addMessage = function (author, text, recieved = false) {
+export const renderMessage = function (author, text, recieved = false) {
   if (!validateMessage(text)) return;
 
   const newMessage = createNewMessageItem(author, text, recieved);
