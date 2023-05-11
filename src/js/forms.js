@@ -1,5 +1,7 @@
 import { renderMessage } from "./messages";
-import { User, UserDataSender } from "./user";
+import userServices from "./services/userServices";
+import { UserDataSender } from "./user";
+import User from "./user";
 
 const addMessageForm = document.querySelector(".form");
 const addMessageFormInput = addMessageForm.querySelector(".form__input");
@@ -14,7 +16,8 @@ const conformationInput = confirmationForm.querySelector(".popup__form-input");
 const settingsForm = document.getElementById("settings-form");
 const settingsInput = settingsForm.querySelector(".popup__form-input");
 
-let currentUser = new User();
+const currentUser = new User();
+
 const dataSender = new UserDataSender();
 
 addMessageForm.addEventListener("submit", (e) => {
@@ -35,7 +38,7 @@ authForm.addEventListener("submit", (e) => {
 
   currentUser.set("email", enteredEmail);
 
-  dataSender.sendAuthRequest(enteredEmail);
+  userServices.sendAuthRequest(enteredEmail);
 
   authEnterCodeBtn.disabled = false;
 
@@ -53,7 +56,7 @@ confirmationForm.addEventListener("submit", (e) => {
 settingsForm.addEventListener("submit", (e) => {
   e.preventDefault();
   currentUser.set("name", settingsInput.value);
-  dataSender.setUserName(settingsInput.value);
+  userServices.setName(settingsInput.value);
 
   e.target.reset();
 });
