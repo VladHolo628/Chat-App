@@ -1,32 +1,57 @@
-// const allPopups = document.querySelectorAll(".popup");
-const popupCloseBtns = Array.from(
-  document.querySelectorAll(".popup__close-btn")
-);
-const openPopupBtns = document.querySelectorAll(".app__header-btn");
-const enterCodeBtn = document.querySelector(".popup__form-btn--enter-code");
+const selectors = {
+  popupElement: "[data-js-popup]",
+  popupCloseButtonElement: "[data-js-popup-close-button]",
+  popupOpenButtonElement: "[data-js-popup-open-button]",
+  popupEnterCodeButtonElement: "[data-popup-enter-code-btn]",
+};
 
-openPopupBtns.forEach((btn) => {
-  btn.addEventListener("click", (e) => {
-    const buttonLinkedTo = e.target.dataset.attachedTo;
+const stateClasses = {
+  isOpen: "is-open",
+};
 
-    const popup = document.getElementById(buttonLinkedTo);
-    popup.classList.add("popup--opened");
-  });
-});
+const onOpenPopupHandler = function (event) {
+  const { attachedTo } = event.target.dataset;
+  const popup = document.getElementById(attachedTo);
 
-popupCloseBtns.forEach((btn) => {
-  btn.addEventListener("click", (e) => {
-    const popup = e.target.closest(".popup");
-    popup.classList.remove("popup--opened");
-  });
-});
+  popup.classList.add(stateClasses.isOpen);
+};
 
-enterCodeBtn.addEventListener("click", (e) => {
-  const currentPopup = e.target.closest(".popup");
-  currentPopup.classList.remove("popup--opened");
+export const onClosePopupHandler = function (event) {
+  const popup = event.target.closest(selectors.popupElement);
 
-  const buttonLinkedTo = e.target.dataset.attachedTo;
+  popup.classList.remove(stateClasses.isOpen);
+};
 
-  const nextPopup = document.getElementById(buttonLinkedTo);
-  nextPopup.classList.add("popup--opened");
+const onEnterCodePopupHandler = function (event) {
+  const currentPopup = event.target.closest(selectors.popupElement);
+  const { attachedTo } = event.target.dataset;
+  const nextPopup = document.getElementById(attachedTo);
+
+  currentPopup.classList.remove(stateClasses.isOpen);
+
+  nextPopup.classList.add(stateClasses.isOpen);
+};
+
+document.addEventListener("click", (event) => {
+  const { target } = event;
+
+  switch (true) {
+    case target.matches(selectors.popupOpenButtonElement): {
+      onOpenPopupHandler(event);
+      break;
+    }
+
+    case target.matches(selectors.popupCloseButtonElement): {
+      onClosePopupHandler(event);
+      break;
+    }
+
+    case target.matches(selectors.popupEnterCodeButtonElement): {
+      onEnterCodePopupHandler(event);
+      break;
+    }
+
+    default:
+      break;
+  }
 });

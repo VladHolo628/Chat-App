@@ -1,10 +1,15 @@
 import { format } from "date-fns";
-import { UserDataSender } from "./user";
 
 const messagesList = document.querySelector(".messages");
 const messageTemplate = document.getElementById("message-item-template");
 
-const dataSender = new UserDataSender();
+class Message {
+  sendMessage() {
+    //
+  }
+
+  getMessages() {}
+}
 
 const validateMessage = function (messageText) {
   const messageIsValid = messageText.length > 0;

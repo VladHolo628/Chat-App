@@ -2,7 +2,7 @@ import Cookies from "js-cookie";
 
 const BASE_URL = "https://edu.strada.one/api/user";
 
-const token = Cookies.get("userToken");
+const token = Cookies.get("token");
 
 const headers = {
   "Content-Type": "application/json",
@@ -29,7 +29,7 @@ const userServices = {
   setName: async (name) => {
     const body = JSON.stringify({ name });
 
-    return fetch(`${BASE_URL}/me`, { method: "PATCH", headers, body }).then(
+    return fetch(`${BASE_URL}`, { method: "PATCH", headers, body }).then(
       (response) => response.json()
     );
   },
