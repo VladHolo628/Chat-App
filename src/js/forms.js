@@ -29,10 +29,11 @@ function handleForm(form, handlerFunction) {
 }
 
 const addMessageHandler = function (inputValue) {
-  const messageAuthor = `${currentUser.name}:`;
+  const messageAuthor = `${currentUser.name}`;
   const messageText = inputValue;
+  const time = new Date();
 
-  renderMessage(messageAuthor, messageText);
+  renderMessage(messageAuthor, messageText, time);
 };
 
 const authHandler = function (inputValue) {

@@ -1,19 +1,14 @@
-import Cookies from "js-cookie";
+import fetchServices from "./fetchServices";
 
-const BASE_URL = "https://edu.strada.one/api/user";
+const { BASE_URL, headers } = fetchServices;
 
-const token = Cookies.get("token");
-
-const headers = {
-  "Content-Type": "application/json",
-  Authorization: `Bearer ${token}`,
-};
+const URL = `${BASE_URL}/user`;
 
 const userServices = {
   sendAuthRequest: async (email) => {
     const body = JSON.stringify({ email });
 
-    return fetch(BASE_URL, {
+    return fetch(URL, {
       method: "POST",
       headers,
       body,
@@ -21,15 +16,13 @@ const userServices = {
   },
 
   getData: async () => {
-    return fetch(`${BASE_URL}/me`, { headers }).then((response) =>
-      response.json()
-    );
+    return fetch(`${URL}/me`, { headers }).then((response) => response.json());
   },
 
   setName: async (name) => {
     const body = JSON.stringify({ name });
 
-    return fetch(`${BASE_URL}`, { method: "PATCH", headers, body }).then(
+    return fetch(`${URL}`, { method: "PATCH", headers, body }).then(
       (response) => response.json()
     );
   },

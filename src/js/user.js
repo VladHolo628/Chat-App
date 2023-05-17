@@ -4,7 +4,7 @@ const defaultUserName = "Я";
 
 class User {
   constructor() {
-    this.name = defaultUserName;
+    this.name = Cookies.get("name") ?? defaultUserName;
   }
 
   set(name, value) {
