@@ -1,59 +1,67 @@
 import { renderMessage } from "./messages";
-import { User, UserDataSender } from "./user";
+import { onClosePopupHandler } from "./popups";
+import userServices from "./services/userServices";
+import User from "./user";
 
 const addMessageForm = document.querySelector(".form");
-const addMessageFormInput = addMessageForm.querySelector(".form__input");
-
-const authForm = document.getElementById("auth-form");
-const authInput = authForm.querySelector(".popup__form-input");
-const authEnterCodeBtn = authForm.querySelector(".popup__form-btn--enter-code");
-
-const confirmationForm = document.getElementById("confirmation-form");
-const conformationInput = confirmationForm.querySelector(".popup__form-input");
-
 const settingsForm = document.getElementById("settings-form");
-const settingsInput = settingsForm.querySelector(".popup__form-input");
+const authForm = document.getElementById("auth-form");
+const confirmationForm = document.getElementById("confirmation-form");
 
-let currentUser = new User();
-const dataSender = new UserDataSender();
+const authEnterCodeBtn = authForm.querySelector("[data-popup-enter-code-btn]");
 
-addMessageForm.addEventListener("submit", (e) => {
-  e.preventDefault();
-  const messageText = addMessageFormInput.value;
-  const messageAuthor = `${currentUser.name}:`;
+const currentUser = new User();
 
-  renderMessage(messageAuthor, messageText);
+const selectors = {
+  root: "[data-form]",
+  input: "[data-form-input]",
+};
 
-  e.target.reset();
-});
+function handleForm(form, handlerFunction) {
+  form.addEventListener("submit", (event) => {
+    event.preventDefault();
+    const inputValue = form.querySelector(selectors.input).value;
 
-authForm.addEventListener("submit", (e) => {
-  e.preventDefault();
+    handlerFunction(inputValue, event);
 
-  const enteredEmail = authInput.value;
+    event.target.reset();
+  });
+}
+
+const addMessageHandler = function (inputValue) {
+  const messageAuthor = `${currentUser.name}`;
+  const messageText = inputValue;
+  const time = new Date();
+
+  renderMessage(messageAuthor, messageText, time);
+};
+
+const authHandler = function (inputValue) {
+  const enteredEmail = inputValue;
   if (!enteredEmail) return;
 
   currentUser.set("email", enteredEmail);
 
-  dataSender.sendAuthRequest(enteredEmail);
+  userServices.sendAuthRequest(enteredEmail);
 
   authEnterCodeBtn.disabled = false;
+};
 
-  e.target.reset();
-});
-
-confirmationForm.addEventListener("submit", (e) => {
-  e.preventDefault();
-  const enteredToken = conformationInput.value;
+const confirmationHandler = function (inputValue, event) {
+  const enteredToken = inputValue;
 
   currentUser.set("token", enteredToken);
-  e.target.closest(".popup").classList.remove("popup--opened");
-});
+  onClosePopupHandler(event);
+};
 
-settingsForm.addEventListener("submit", (e) => {
-  e.preventDefault();
-  currentUser.set("name", settingsInput.value);
-  dataSender.setUserName(settingsInput.value);
+const settingsHandler = function (inputValue) {
+  currentUser.set("name", inputValue);
+  userServices.setName(inputValue);
+};
 
-  e.target.reset();
-});
+handleForm(addMessageForm, addMessageHandler);
+handleForm(authForm, authHandler);
+handleForm(confirmationForm, confirmationHandler);
+handleForm(settingsForm, settingsHandler);
+
+console.log(userServices.getData());

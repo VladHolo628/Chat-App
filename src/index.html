@@ -21,78 +21,67 @@
           <button
             class="app__header-btn app__header-btn--settings btn"
             data-attached-to="settings-popup"
+            data-js-popup-open-button
           >
             Настройки
           </button>
           <button
             class="app__header-btn app__header-btn--auth btn"
             data-attached-to="auth-popup"
+            data-js-popup-open-button
           >
             Войти
           </button>
         </div>
         <div class="app__screen">
-          <ul class="messages">
-            <li class="messages__item">
-              <p class="messages__item-text">
-                <span class="messages__item-author">Я:</span>Добрый день!
-              </p>
-              <div class="messages__item-date">18:45</div>
-            </li>
-            <li class="messages__item messages__item--recieved">
-              <p class="messages__item-text">
-                <span class="messages__item-author">Собеседник:</span>
-                А это второе и, кажется, оно очень длинное, чтобы поместиться на
-                одной строке
-              </p>
-              <div class="messages__item-date">18:45</div>
-            </li>
-            <li class="messages__item messages__item--recieved">
-              <p class="messages__item-text">
-                <span class="messages__item-author">Собеседник:</span>
-                А это второе
-              </p>
-              <div class="messages__item-date">18:45</div>
-            </li>
-            <li class="messages__item">
-              <p class="messages__item-text">
-                <span class="messages__item-author">Я:</span>Добрый день!
-              </p>
-              <div class="messages__item-date">18:45</div>
-            </li>
-          </ul>
+          <ul class="messages"></ul>
         </div>
-        <form class="form">
+        <form class="form" data-js-form>
           <input
             class="form__input input"
             type="text"
             placeholder="Сообщение..."
+            data-form-input
           />
           <button type="submit" class="form__btn btn btn--send">-></button>
         </form>
-        <div class="popup" id="settings-popup">
+        <div class="popup" id="settings-popup" data-js-popup>
           <div class="popup__header">
             <p class="popup__title">Настройки</p>
-            <button class="popup__close-btn">X</button>
+            <button class="popup__close-btn" data-js-popup-close-button>
+              X
+            </button>
           </div>
 
-          <form class="popup__form" id="settings-form">
+          <form class="popup__form" id="settings-form" data-js-settings-form>
             <label class="popup__form-label" for="settings-popup"
               >Имя в чате</label
             >
-            <input class="popup__form-input input" type="text" name="" id="" />
+            <input
+              class="popup__form-input input"
+              type="text"
+              data-form-input
+            />
             <button class="popup__form-btn btn" type="submit">-></button>
           </form>
         </div>
-        <div class="popup" id="auth-popup">
+        <div class="popup" id="auth-popup" data-js-popup>
           <div class="popup__header">
             <p class="popup__title">Авторизация</p>
-            <button class="popup__close-btn">X</button>
+            <button class="popup__close-btn" data-js-popup-close-button>
+              X
+            </button>
           </div>
 
           <form class="popup__form" id="auth-form">
             <label class="popup__form-label" for="settings-popup">Почта:</label>
-            <input class="popup__form-input input" type="email" name="" id="" />
+            <input
+              class="popup__form-input input"
+              type="email"
+              name=""
+              id=""
+              data-form-input
+            />
             <div class="popup__controls">
               <button
                 class="popup__form-btn popup__form-btn--get-code popup__form-btn--separate btn"
@@ -101,17 +90,18 @@
                 Получить код
               </button>
               <button
-                class="popup__form-btn popup__form-btn--enter-code popup__form-btn--separate btn"
+                class="popup__form-btn popup__form-btn--separate btn"
                 type="button"
                 disabled
                 data-attached-to="confirmation-popup"
+                data-popup-enter-code-btn
               >
                 Ввести код
               </button>
             </div>
           </form>
         </div>
-        <div class="popup" id="confirmation-popup">
+        <div class="popup" id="confirmation-popup" data-js-popup>
           <div class="popup__header">
             <p class="popup__title">Подтверждение</p>
             <button class="popup__close-btn">X</button>
@@ -119,7 +109,13 @@
 
           <form class="popup__form" id="confirmation-form">
             <label class="popup__form-label" for="settings-popup">Код:</label>
-            <input class="popup__form-input input" type="text" name="" id="" />
+            <input
+              class="popup__form-input input"
+              type="text"
+              name=""
+              id=""
+              data-form-input
+            />
             <div class="popup__controls">
               <button class="popup__form-btn btn" type="submit">Войти</button>
             </div>
@@ -129,6 +125,15 @@
     </main>
     <template id="message-item-template">
       <li class="messages__item">
+        <div class="messages__item-text-container">
+          <span class="messages__item-author"></span>
+          <p class="messages__item-text"></p>
+        </div>
+        <div class="messages__item-date"></div>
+      </li>
+    </template>
+    <template id="message-item-template-recieved">
+      <li class="messages__item messages__item--recieved">
         <div class="messages__item-text-container">
           <span class="messages__item-author"></span>
           <p class="messages__item-text"></p>
