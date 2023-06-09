@@ -1,5 +1,6 @@
-import { renderMessage } from "./messages";
+import { socketSendHandler } from "./network";
 import { onClosePopupHandler } from "./popups";
+import { init } from "./services/appServices";
 import userServices from "./services/userServices";
 import User from "./user";
 
@@ -10,7 +11,7 @@ const confirmationForm = document.getElementById("confirmation-form");
 
 const authEnterCodeBtn = authForm.querySelector("[data-popup-enter-code-btn]");
 
-const currentUser = new User();
+export const currentUser = new User();
 
 const selectors = {
   root: "[data-form]",
@@ -29,11 +30,9 @@ function handleForm(form, handlerFunction) {
 }
 
 const addMessageHandler = function (inputValue) {
-  const messageAuthor = `${currentUser.name}`;
   const messageText = inputValue;
-  const time = new Date();
-
-  renderMessage(messageAuthor, messageText, time);
+  if (!messageText) return;
+  socketSendHandler(messageText);
 };
 
 const authHandler = function (inputValue) {
@@ -51,6 +50,7 @@ const confirmationHandler = function (inputValue, event) {
   const enteredToken = inputValue;
 
   currentUser.set("token", enteredToken);
+  init();
   onClosePopupHandler(event);
 };
 
@@ -63,5 +63,3 @@ handleForm(addMessageForm, addMessageHandler);
 handleForm(authForm, authHandler);
 handleForm(confirmationForm, confirmationHandler);
 handleForm(settingsForm, settingsHandler);
-
-console.log(userServices.getData());

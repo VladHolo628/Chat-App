@@ -1,6 +1,7 @@
 import { format } from "date-fns";
 
 const messagesList = document.querySelector(".messages");
+
 const templateSelectors = {
   userMessage: "message-item-template",
   recievedMessage: "message-item-template-recieved",
@@ -35,6 +36,5 @@ export const renderMessage = function (author, text, time, recieved = false) {
 
   const newMessage = createNewMessageItem(author, text, time, recieved);
 
-  messagesList.appendChild(newMessage);
-  messagesList.scrollTop = messagesList.scrollHeight;
+  messagesList.prepend(newMessage);
 };
